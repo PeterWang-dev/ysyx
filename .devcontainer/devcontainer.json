@@ -1,0 +1,48 @@
+{
+    "name": "YSYX Environment",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "USERNAME": "ysyx",
+            "USER_UID": "1000",
+            "DEFAULT_SHELL": "/bin/bash"
+        }
+    },
+    "containerEnv": {},
+    "mounts": [
+        {
+            "source": "${localWorkspaceFolder}",
+            "target": "/ysyx",
+            "type": "bind"
+
+        }
+    ],
+    "runArgs": [
+        "--name",
+        "ysyx-env",
+        "--hostname",
+        "YSYX Environment",
+        "--rm"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "yzhang.markdown-all-in-one",
+                "quarto.quarto",
+                "scalameta.metals",
+                "scala-lang.scala",
+                "aaronduino.chisel"
+            ]
+        }
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {
+			"version": "os-provided"
+		},
+        "ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {
+			"installTinyTex": true,
+			"installChromium": true,
+			"version": "prerelease"
+		}
+    }
+}
