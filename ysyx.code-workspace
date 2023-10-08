@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"name": "YSYX Root Folder",
+			"path": "."
+		},
+		{
+			"name": "YSYX Documentations",
+			"path": "./docs"
+		},
+		{
+			"name": "YSYX Workbench",
+			"path": "./ysyx-workbench"
+		},
+		{
+			"name": "Digital Logic and Computer Organization Lab",
+			"path": "./dlco-lab"
+		}
+	],
+	"settings": {
+		"files.watcherExclude": {
+			"**/target": true
+		}
+	}
+}
