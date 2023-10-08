@@ -90,8 +90,8 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /tmp
-RUN wget --no-check-certificate https://github.com/llvm/circt/releases/download/firtool-1.56.1/firrtl-bin-linux-x64.tar.gz \
-    && wget --no-check-certificate https://github.com/llvm/circt/releases/download/firtool-1.56.1/firrtl-bin-linux-x64.tar.gz.sha256 \
+RUN wget -q --no-check-certificate https://github.com/llvm/circt/releases/download/firtool-1.56.1/firrtl-bin-linux-x64.tar.gz \
+    && wget -q --no-check-certificate https://github.com/llvm/circt/releases/download/firtool-1.56.1/firrtl-bin-linux-x64.tar.gz.sha256 \
     && echo "$(cat firrtl-bin-linux-x64.tar.gz.sha256) firrtl-bin-linux-x64.tar.gz" | sha256sum --check \
     && tar -xzf firrtl-bin-linux-x64.tar.gz
 
@@ -105,7 +105,8 @@ FROM ysyx-env-firtool as ysyx-env
 ARG USERNAME=ysyx
 ARG UID=1000
 ARG DEFAULT_SHELL=/bin/bash
-RUN useradd -m -u ${UID} -s ${DEFAULT_SHELL} -d /${USERNAME} ${USERNAME}
+RUN useradd -m -u ${UID} -s ${DEFAULT_SHELL} -d /workspace ${USERNAME}
 USER ${USERNAME}
-VOLUME [ "/${USERNAME}" ]
+VOLUME [ "/workspace/ysyx" ]
+WORKDIR /workspace/ysyx
 CMD [ "/bin/bash" ]
