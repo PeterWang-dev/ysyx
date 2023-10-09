@@ -107,6 +107,6 @@ ARG UID=1000
 ARG DEFAULT_SHELL=/bin/bash
 RUN useradd -m -u ${UID} -s ${DEFAULT_SHELL} -d /workspace ${USERNAME}
 USER ${USERNAME}
-VOLUME [ "/workspace/ysyx" ]
-WORKDIR /workspace/ysyx
+VOLUME [ "/workspace" ]
+WORKDIR /workspace
 CMD [ "/bin/bash" ]

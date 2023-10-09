@@ -9,14 +9,6 @@
         }
     },
     "containerEnv": {},
-    "mounts": [
-        {
-            "source": "${localWorkspaceFolder}",
-            "target": "/ysyx",
-            "type": "bind"
-
-        }
-    ],
     "runArgs": [
         "--name",
         "ysyx-env",
