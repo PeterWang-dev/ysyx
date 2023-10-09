@@ -2,6 +2,7 @@
 !/.devcontainer
 !dlco-lab
 !/docs
+!yosys-sta
 !ysyx-workbench
 !.gitignore
 !.gitmodules

@@ -6,3 +6,6 @@
 	path = dlco-lab
 	url = git@github.com:PeterWang-dev/DlcoLab.git
 	branch = dev
+[submodule "yosys-sta"]
+	path = yosys-sta
+	url = git@github.com:OSCPU/yosys-sta.git
