@@ -104,9 +104,8 @@ ENV PATH="/opt/firtool/bin:${PATH}"
 FROM ysyx-env-firtool as ysyx-env
 ARG USERNAME=ysyx
 ARG UID=1000
-ARG DEFAULT_SHELL=/bin/bash
-RUN useradd -m -u ${UID} -s ${DEFAULT_SHELL} -d /workspace ${USERNAME}
+RUN useradd -m -u ${UID} -d /workspaces ${USERNAME}
 USER ${USERNAME}
-VOLUME [ "/workspace" ]
-WORKDIR /workspace
+VOLUME [ "/workspaces" ]
+WORKDIR /workspaces
 CMD [ "/bin/bash" ]
