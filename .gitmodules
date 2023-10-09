@@ -1,6 +1,8 @@
 [submodule "ysyx-workbench"]
 	path = ysyx-workbench
 	url = git@github.com:PeterWang-dev/ysyx-workbench
+	branch = dev
 [submodule "dlco-lab"]
 	path = dlco-lab
 	url = git@github.com:PeterWang-dev/DlcoLab.git
+	branch = dev
