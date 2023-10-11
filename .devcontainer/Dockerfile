@@ -100,8 +100,15 @@ FROM ysyx-env-sbt as ysyx-env-firtool
 COPY --from=firtool-build /tmp/firtool-1.56.1/bin/firtool /opt/firtool/bin/firtool
 ENV PATH="/opt/firtool/bin:${PATH}"
 
+# ysyx environment: other dependencies
+FROM ysyx-env-firtool as ysyx-env-others
+RUN apt-get update \
+    && apt-get install -y libsdl2-dev libsdl2-image-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 # Final image
-FROM ysyx-env-firtool as ysyx-env
+FROM ysyx-env-others as ysyx-env
 ARG USERNAME=ysyx
 ARG UID=1000
 RUN useradd -m -u ${UID} -d /workspaces ${USERNAME}
