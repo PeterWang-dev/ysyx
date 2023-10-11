@@ -4,21 +4,31 @@
         "${localWorkspaceFolder}/.devcontainer/build.sh"
     ],
     "image": "ysyx-env",
-    "containerEnv": {},
+    "containerEnv": {
+        "NVBOARD_HOME": "/workspaces/ysyx/ysyx-workbench/nvboard"
+    },
     "runArgs": [
         "--name",
         "ysyx-env",
         "--hostname",
         "YSYX-Environment"
     ],
+    "mounts": [
+        {
+            "source": "ysyx-home",
+            "target": "/workspaces",
+            "type": "volume"
+        }
+    ],
     "customizations": {
         "vscode": {
             "extensions": [
-                "yzhang.markdown-all-in-one",
-                "scalameta.metals",
-                "scala-lang.scala",
-                "aaronduino.chisel"
-            ]
+				"yzhang.markdown-all-in-one",
+				"scalameta.metals",
+				"scala-lang.scala",
+				"aaronduino.chisel",
+				"sterben.fpga-support"
+			]
         }
     },
     "features": {
