@@ -5,15 +5,23 @@
     ],
     "image": "ysyx-env",
     "containerEnv": {
+        "DISPLAY": "${localEnv:DISPLAY}",
         "NVBOARD_HOME": "/workspaces/ysyx/ysyx-workbench/nvboard"
     },
     "runArgs": [
         "--name",
         "ysyx-env",
         "--hostname",
-        "YSYX-Environment"
+        "YSYX-Environment",
+        "--net",
+        "host"
     ],
     "mounts": [
+        {
+            "source": "/tmp/.X11-unix",
+            "target": "/tmp/.X11-unix",
+            "type": "bind"
+        },
         {
             "source": "ysyx-home",
             "target": "/workspaces",
