@@ -103,7 +103,7 @@ ENV PATH="/opt/firtool/bin:${PATH}"
 # ysyx environment: other dependencies
 FROM ysyx-env-firtool as ysyx-env-others
 RUN apt-get update \
-    && apt-get install -y libsdl2-dev libsdl2-image-dev \
+    && apt-get install -y libsdl2-dev libsdl2-image-dev bison ncurses-dev libreadline-dev llvm clang gdb \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -111,8 +111,8 @@ RUN apt-get update \
 FROM ysyx-env-others as ysyx-env
 ARG USERNAME=ysyx
 ARG UID=1000
-RUN useradd -m -u ${UID} -d /workspaces ${USERNAME}
+RUN useradd -m -u ${UID} -d /home/ysyx ${USERNAME}
 USER ${USERNAME}
-VOLUME [ "/workspaces" ]
-WORKDIR /workspaces
+VOLUME [ "/home/ysyx" ]
+WORKDIR /home/ysyx
 CMD [ "/bin/bash" ]

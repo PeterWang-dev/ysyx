@@ -1,25 +1,41 @@
 {
-	"folders": [
-		{
-			"name": "YSYX Root Folder",
-			"path": "."
-		},
-		{
-			"name": "YSYX Documentations",
-			"path": "./docs"
-		},
-		{
-			"name": "YSYX Workbench",
-			"path": "./ysyx-workbench"
-		},
-		{
-			"name": "Digital Logic and Computer Organization Lab",
-			"path": "./dlco-lab"
-		}
-	],
-	"settings": {
-		"files.watcherExclude": {
-			"**/target": true
-		}
-	}
+    "folders": [
+        {
+            "name": "YSYX Root Folder",
+            "path": "."
+        },
+        {
+            "name": "YSYX Documentations",
+            "path": "./docs"
+        },
+        {
+            "name": "YSYX Workbench",
+            "path": "./ysyx-workbench"
+        },
+        {
+            "name": "NVBoard",
+            "path": "./ysyx-workbench/nvboard"
+        },
+        {
+            "name": "Digital Logic and Computer Organization Lab",
+            "path": "./dlco-lab"
+        },
+        {
+            "name": "NEMU",
+            "path": "./ysyx-workbench/nemu"
+        },
+        {
+            "name": "Abstract Machine",
+            "path": "./ysyx-workbench/abstract-machine"
+        }
+    ],
+    "settings": {
+        "clangd.arguments": [
+            "--clang-tidy",
+            "--header-insertion=never"
+        ],
+        "files.watcherExclude": {
+            "**/target": true
+        },
+    }
 }
