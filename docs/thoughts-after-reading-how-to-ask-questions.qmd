@@ -5,10 +5,13 @@ author: 王嘉宸（广东工业大学\ 计算机学院）
 date: 2022-11-28
 keywords: [提问, 读后感]
 
-documentclass: ctexart
-papersize: a4
-indent: true
-geometry: top=0.5cm, bottom=1.5cm, left=2cm, right=2cm
+format:
+  pdf:
+    pdf-engine: xelatex
+    documentclass: ctexart
+    papersize: a4
+    indent: true
+    geometry: top=0.5cm, bottom=1.5cm, left=2cm, right=2cm
 ---
 
 问问题，是学习过程中必不可少的一个环节。一个人想要完全理解清楚一个知识，没有疑问是不可能的。
