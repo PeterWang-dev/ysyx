@@ -1,11 +1,11 @@
 [submodule "ysyx-workbench"]
 	path = ysyx-workbench
-	url = git@github.com:PeterWang-dev/ysyx-workbench
-	branch = dev
+	url = git@github.com:PeterWang-dev/ysyx-workbench.git
+	branch = master
 [submodule "dlco-lab"]
 	path = dlco-lab
 	url = git@github.com:PeterWang-dev/DlcoLab.git
-	branch = dev
+	branch = origin/main
 [submodule "yosys-sta"]
 	path = yosys-sta
 	url = git@github.com:OSCPU/yosys-sta.git
