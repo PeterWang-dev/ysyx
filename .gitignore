@@ -1,9 +1,10 @@
-# Ignore everything
+# Ignore everything except gitignore and gitsubmodules file
 *
+!.gitignore
+!.gitsubmodules
 # working environment
 !environment
 !requirements.txt
 # working submodules
 !docs
 !ysyx-workbench
-
