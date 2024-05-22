@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+if [ "${BASH_SOURCE-}" = "$0" ]; then
+    echo "You must source this script: \$ source $0" >&2
+    exit 1
+fi
+
+YSYX_HOME=$(dirname $(realpath $0))
+
+if [ -f "/opt/oss-cad-suite/environment" ]; then
+    source /opt/oss-cad-suite/environment
+    # Rename the deactivate function from the OSS CAD Suite environment
+    eval "$(declare -f deactivate | sed -e 's/deactivate/deactivate_cad_suite/g')"
+else
+    echo -e "Could not find /opt/opt/oss-cad-suite/environment\n" >&2
+    echo "Please install the OSS CAD Suite and try again!\n" >&2
+    exit 1
+fi
+
+VENV=${YSYX_HOME}/.venv
+PYTHON_VERSION=$(python3 --version | cut -d " " -f 2 | cut -d "." -f 1,2)
+
+if ! [ -d "${VENV}" ] ; then
+    echo -e "Creating virtual environment...\n"
+    # Use OSS CAD Suite python version to create virtual environment
+    virtualenv --python /usr/bin/python${PYTHON_VERSION} ${VENV}
+    if [ ! $? ] ; then
+        echo -e "Can not create virtual environment\n" >&2
+        exit 1
+    fi
+fi
+
+# Install requirements
+source ${VENV}/bin/activate
+
+# Set variables for later use
+VENV_PATH="${VENV}/bin"
+VENV_LIB="${VENV}/lib/python${PYTHON_VERSION}/site-packages"
+
+if [ -f "${YSYX_HOME}/requirements.txt" ] ; then
+    pip install -r ${YSYX_HOME}/requirements.txt >/dev/null
+fi
+
+deactivate # Deactivate the venv and activate it shortly after manually
+
+deactivate () {
+    # Use OSS CAD Suite deactivate function to restore old environment variables
+    # Note that when OSS CAD Suite activate is called,
+    # the old environment variables are stored
+
+    # Exception for PS1 because new PS1 should be applied, clean up old PS1
+    if ! [ -z "${_OLD_ENVIRONMENT_PS1+_}" ] ; then
+        PS1="$_OLD_ENVIRONMENT_PS1"
+        export PS1
+        # Do not unset old PS1 as
+        # it is used by the OSS CAD Suite deactivate function
+        # unset _OLD_ENVIRONMENT_PS1
+    fi
+
+    # This should detect bash and zsh, which have a hash command that must
+    # be called to get it to forget past commands.  Without forgetting
+    # past commands the $PATH changes we made may not be respected
+    if [ -n "${BASH-}" ] || [ -n "${ZSH_VERSION-}" ] ; then
+        hash -r 2>/dev/null
+    fi
+
+    unset NPC_HOME
+    unset NVBOARD_HOME
+    unset NEMU_HOME
+    unset AM_HOME
+
+    unset PYTHONPATH
+
+    unset YSYX_HOME
+    unset VIRTUAL_ENV
+
+    if [ ! "${1-}" = "nondestructive" ] ; then
+        # Self destruct!
+        deactivate_cad_suite
+        unset -f deactivate
+    fi
+}
+
+deactivate nondestructive
+
+# Potential PATH Modification
+
+export YSYX_HOME=$(dirname $(realpath $0))
+
+YSYX_WORKBENCH="${YSYX_HOME}/ysyx-workbench"
+
+export NPC_HOME="${YSYX_WORKBENCH}/npc"
+export NVBOARD_HOME="${YSYX_WORKBENCH}/nvboard"
+export NEMU_HOME="${YSYX_WORKBENCH}/nemu"
+export AM_HOME="${YSYX_WORKBENCH}/abstract-machine"
+
+# Insert local virtual environment before the OSS CAD Suite environment
+OSS_CAD_SUITE_PATH="${$(echo $PATH | tr ":" "\n" | grep "oss-cad-suite" | tr "\n" ":")%:}"
+export PATH="${OSS_CAD_SUITE_PATH}:${VENV_PATH}:${_OLD_ENVIRONMENT_PATH}"
+export PYTHONPATH=${VENV_LIB} # Additional Python libraries provided by the venv
+
+# Use the OSS CAD Suite activate function to store old environment variables
+export VIRTUAL_ENV="YSYX Environment"
+
+if [ -n "${ZSH_VERSION-}" ] ; then
+    autoload -U colors && colors
+    PS1="%{$fg[blue]%}(${VIRTUAL_ENV})%{$reset_color%} ${PS1-}"
+else
+    PS1="\[\033[1;34m\]\342\246\227${VIRTUAL_ENV}\342\246\230\[\033[0m\] ${PS1-}"
+fi
+export PS1
+
+# This should detect bash and zsh, which have a hash command that must
+# be called to get it to forget past commands.  Without forgetting
+# past commands the $PATH changes we made may not be respected
+if [ -n "${BASH-}" ] || [ -n "${ZSH_VERSION-}" ] ; then
+    hash -r 2>/dev/null
+fi
+

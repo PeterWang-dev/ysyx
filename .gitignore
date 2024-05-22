@@ -1,9 +1,9 @@
-/*
-!/.devcontainer
-!dlco-lab
-!/docs
-!yosys-sta
+# Ignore everything
+*
+# working environment
+!environment
+!requirements.txt
+# working submodules
+!docs
 !ysyx-workbench
-!.gitignore
-!.gitmodules
-!ysyx.code-workspace
+
